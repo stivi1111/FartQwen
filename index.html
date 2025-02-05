@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="it">
+<!DOCTYPE html> 
+<html lang="en">
 <head>
-  <link rel="icon" href="logo.png" type="image/png">
+  <link rel="icon" href="fart.png" type="image/png">
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FartQwen</title>
+  <!-- Importa il font Bangers da Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
   <style>
     /* Stili generali */
@@ -16,9 +17,12 @@
       padding: 0;
       line-height: 1.6;
     }
+    
     body.game-active {
       overflow: hidden;
     }
+
+    /* Animated Header */
     header {
       position: relative;
       padding: 120px 20px 80px;
@@ -49,6 +53,7 @@
     .gas-cloud:nth-child(1) { left: 10%; top: 20%; animation-duration: 15s; }
     .gas-cloud:nth-child(2) { left: 70%; top: 40%; animation-duration: 12s; }
     .gas-cloud:nth-child(3) { left: 30%; top: 60%; animation-duration: 18s; }
+
     header h1 {
       font-family: 'Bangers', cursive;
       font-size: 4rem;
@@ -56,6 +61,14 @@
       color: #ffeb3b;
       text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
       animation: wobble 2s ease-in-out infinite;
+    }
+    header .logo-image {
+      display: block;
+      margin: 20px auto 0 auto;
+      max-width: 150px;
+      border: none;
+      box-shadow: none;
+      background: transparent;
     }
     @keyframes wobble {
       0%, 100% { transform: translateX(0) rotate(0deg); }
@@ -68,7 +81,7 @@
       color: #e1bee7;
     }
 
-    /* Navbar */
+    /* Navigation Bar */
     nav {
       position: fixed;
       top: 0;
@@ -134,7 +147,6 @@
       color: #ffcc00;
     }
 
-    /* Container e contenuti */
     .container {
       max-width: 1200px;
       margin: 20px auto;
@@ -142,12 +154,14 @@
       background: rgba(255, 255, 255, 0.05);
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
     }
     h2 {
       color: #8a2be2;
       font-size: 2rem;
       margin-bottom: 15px;
     }
+    /* Regola globale per le immagini */
     img {
       max-width: 100%;
       height: auto;
@@ -172,6 +186,7 @@
       box-shadow: 0 8px 20px rgba(138, 43, 226, 0.5);
     }
     .contract-address {
+      margin-top: 20px;
       text-align: center;
       font-family: monospace;
       font-size: 1rem;
@@ -220,6 +235,7 @@
       display: inline-block;
     }
     #gameCanvas {
+      display: block;
       background: #1e1e1e;
       border: 2px solid #ff69b4;
       border-radius: 10px;
@@ -288,43 +304,15 @@
       animation: fadein 0.5s, fadeout 0.5s 2.5s;
     }
     @keyframes fadein {
-      from { bottom: 0; opacity: 0; }
-      to { bottom: 30px; opacity: 1; }
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
     }
     @keyframes fadeout {
-      from { bottom: 30px; opacity: 1; }
-      to { bottom: 0; opacity: 0; }
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
     }
 
-    /* Controlli mobile */
-    .mobile-controls {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      left: 0;
-      right: 0;
-      justify-content: center;
-      gap: 10px;
-      touch-action: manipulation;
-      z-index: 1000;
-    }
-    .mobile-controls .dpad-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5px;
-    }
-    .control-btn {
-      width: 60px;
-      height: 60px;
-      font-size: 24px;
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid #ffeb3b;
-      border-radius: 10px;
-      color: white;
-      touch-action: manipulation;
-    }
-
-    /* Altri elementi fissi */
+    /* AGENTE DESTINATO AL WELCOME (in basso a destra): SOLO TESTO */
     #agent-window {
       position: fixed;
       bottom: 20px;
@@ -342,6 +330,8 @@
       font-size: 1.2rem;
       color: #ffeb3b;
     }
+
+    /* AGENTE A SINISTRA: SOLO IMMAGINE, SENZA BORDI, SFONDO O OMBRE */
     #agent-image {
       position: fixed;
       bottom: 20px;
@@ -350,15 +340,20 @@
       background: none;
       border: none;
       padding: 0;
+      box-shadow: none;
     }
     #agent-image img {
       width: 150px;
       height: auto;
       object-fit: contain;
+      border-radius: 0 !important;
+      box-shadow: none !important;
     }
+
+    /* PANNELLO CHE COMPARE AL CLIC SULL'AGENTE A SINISTRA */
     #buy-panel {
       position: fixed;
-      bottom: 130px;
+      bottom: 130px; /* Posizionato sopra l'immagine */
       left: 20px;
       background: rgba(74, 20, 140, 0.9);
       border: 2px solid #ffeb3b;
@@ -373,7 +368,7 @@
   </style>
 </head>
 <body>
-  <!-- Navbar -->
+
   <nav id="navbar">
     <div class="nav-container">
       <a href="#home" class="logo scroll-link">𝕏</a>
@@ -386,7 +381,6 @@
     </div>
   </nav>
 
-  <!-- Header -->
   <header id="home">
     <div class="gas-clouds">
       <div class="gas-cloud">💨</div>
@@ -394,9 +388,9 @@
       <div class="gas-cloud">💨</div>
     </div>
     <h1>FartQwen</h1>
+    <!-- <img src="logo.png" alt="Logo FartQwen" class="logo-image"> -->
   </header>
 
-  <!-- Contenuto principale -->
   <div class="container">
     <h2>Welcome to FartQwen</h2>
     <p>FartQwen was born from a simple and fun idea. A user asked me, as a web engineer, to create a meme coin and build a website for it. Thus, by combining humor, creativity, and blockchain technology, FartQwen came to life.</p>
@@ -434,12 +428,11 @@
       <p>Just like FartQwen, farts remind us to take life lightly and with humor. 🚀💨</p>
     </div>
 
-    <!-- Sezione Gioco -->
     <div class="game-section" id="game">
       <h2>Play the FartQwen Game!</h2>
-      <p>Control the snake to eat as many farts (💨) as possible. Use the arrow keys or the mobile controls!</p>
+      <p>Control the snake to eat as many farts (💨) as possible. Use the arrow keys to move!</p>
       <div class="canvas-container">
-        <canvas id="gameCanvas"></canvas>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
         <button id="playGameBtn">Play the Game</button>
       </div>
       <div class="stop-container">
@@ -452,38 +445,28 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     &copy; 2023 FartQwen. Created by Qwen. | <a href="#privacy" class="scroll-link">Privacy Policy</a> | <a href="#terms" class="scroll-link">Terms of Service</a>
   </footer>
 
-  <!-- Altri elementi fissi -->
+  <!-- AGENTE DESTINATO AL WELCOME (in basso a destra): SOLO TESTO -->
   <div id="agent-window">
     <div class="agent-text">Welcome to FartQwen!</div>
   </div>
 
+  <!-- AGENTE A SINISTRA: SOLO IMMAGINE (SENZA BORDI, SFONDO, OMBRE) -->
   <div id="agent-image" onclick="toggleBuyPanel()">
     <img src="logo.png" alt="Agent Image">
   </div>
 
+  <!-- PANNELLO CHE COMPARE AL CLIC SULL'AGENTE A SINISTRA -->
   <div id="buy-panel">Buy FartQwen 🚀</div>
 
+  <!-- Toast Notification -->
   <div id="toast">Contract Address copied to clipboard!</div>
 
-  <!-- Controlli mobile -->
-  <div id="mobileControls" class="mobile-controls">
-    <div class="dpad-container">
-      <div></div>
-      <button class="control-btn" id="upBtn">↑</button>
-      <div></div>
-      <button class="control-btn" id="leftBtn">←</button>
-      <button class="control-btn" id="downBtn">↓</button>
-      <button class="control-btn" id="rightBtn">→</button>
-    </div>
-  </div>
-
   <script>
-    /* Smooth scroll */
+    // FUNZIONE: Smooth Scroll
     function smoothScroll(targetEl, duration) {
       const target = document.querySelector(targetEl);
       const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
@@ -509,7 +492,7 @@
       requestAnimationFrame(animation);
     }
 
-    /* Toast */
+    // FUNZIONE: Toast Notification & Copy Address
     function showToast(message) {
       const toast = document.getElementById("toast");
       toast.textContent = message;
@@ -519,7 +502,6 @@
       }, 3000);
     }
 
-    /* Copy contract */
     function copyToClipboard() {
       const address = document.getElementById("contractAddress").innerText;
       navigator.clipboard.writeText(address).then(() => {
@@ -529,9 +511,10 @@
       });
     }
 
-    /* Navbar scroll */
+    // NAVBAR: Nascondi la barra se si scorre verso il basso, ricompare se si scorre verso l'alto.
     let lastScrollY = window.pageYOffset;
     const navbar = document.getElementById('navbar');
+
     window.addEventListener('scroll', () => {
       const currentScrollY = window.pageYOffset;
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
@@ -542,7 +525,6 @@
       lastScrollY = currentScrollY;
     });
 
-    /* Scroll links */
     document.querySelectorAll('.scroll-link').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -552,36 +534,24 @@
       });
     });
 
-    /* Game logic */
+    // Variabili e funzioni per il gioco Snake
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
     const playGameBtn = document.getElementById("playGameBtn");
     const stopGameBtn = document.getElementById("stopGameBtn");
     const gameScore = document.getElementById("gameScore");
     const gameSpeed = document.getElementById("gameSpeed");
+    const box = 20;
     let snake, food, direction, score, speed, gameInterval;
 
     function resetGame() {
-      const isMobile = window.innerWidth <= 768;
-      const maxSize = Math.min(window.innerWidth * 0.9, 400);
-      const canvasSize = Math.min(maxSize, window.innerHeight * 0.5);
-      
-      canvas.style.width = `${canvasSize}px`;
-      canvas.style.height = `${canvasSize}px`;
-      canvas.width = canvasSize;
-      canvas.height = canvasSize;
-
-      const boxSize = canvasSize / 20;
       snake = [
-        { x: 10 * boxSize, y: 10 * boxSize },
-        { x: 9 * boxSize, y: 10 * boxSize },
-        { x: 8 * boxSize, y: 10 * boxSize }
+        { x: 10 * box, y: 10 * box },
+        { x: 9 * box, y: 10 * box },
+        { x: 8 * box, y: 10 * box }
       ];
       direction = "RIGHT";
-      food = {
-        x: Math.floor(Math.random() * 20) * boxSize,
-        y: Math.floor(Math.random() * 20) * boxSize
-      };
+      food = { x: Math.floor(Math.random() * 20) * box, y: Math.floor(Math.random() * 20) * box };
       score = 0;
       speed = 1;
       gameScore.textContent = `Score: ${score}`;
@@ -590,14 +560,6 @@
 
     function startGame() {
       document.body.classList.add('game-active');
-      const isMobile = window.innerWidth <= 768;
-      if (isMobile) {
-        document.getElementById("mobileControls").style.display = "flex";
-        window.scrollTo(0, 0);
-        document.documentElement.style.overflow = 'hidden';
-      }
-      playGameBtn.style.display = 'none';
-      stopGameBtn.style.display = 'block';
       gameInterval = setInterval(() => {
         draw();
         update();
@@ -607,10 +569,8 @@
     function stopGame() {
       clearInterval(gameInterval);
       document.body.classList.remove('game-active');
-      document.getElementById("mobileControls").style.display = "none";
       stopGameBtn.style.display = 'none';
       playGameBtn.style.display = 'block';
-      document.documentElement.style.overflow = 'auto';
       resetGame();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
@@ -621,11 +581,13 @@
 
       snake.forEach((segment, index) => {
         ctx.fillStyle = index === 0 ? "#8A2BE2" : "#FF69B4";
+        ctx.beginPath();
         if (typeof ctx.roundRect === "function") {
-          ctx.roundRect(segment.x, segment.y, canvas.width / 20, canvas.width / 20, 5);
+          ctx.roundRect(segment.x, segment.y, box, box, 5);
         } else {
-          ctx.fillRect(segment.x, segment.y, canvas.width / 20, canvas.width / 20);
+          ctx.fillRect(segment.x, segment.y, box, box);
         }
+        ctx.fill();
       });
 
       ctx.font = "20px Arial";
@@ -634,17 +596,16 @@
     }
 
     function update() {
-      const boxSize = canvas.width / 20;
       const head = { ...snake[0] };
 
-      if (direction === "LEFT") head.x -= boxSize;
-      if (direction === "UP") head.y -= boxSize;
-      if (direction === "RIGHT") head.x += boxSize;
-      if (direction === "DOWN") head.y += boxSize;
+      if (direction === "LEFT") head.x -= box;
+      if (direction === "UP") head.y -= box;
+      if (direction === "RIGHT") head.x += box;
+      if (direction === "DOWN") head.y += box;
 
-      if (head.x < 0) head.x = canvas.width - boxSize;
+      if (head.x < 0) head.x = canvas.width - box;
       if (head.x >= canvas.width) head.x = 0;
-      if (head.y < 0) head.y = canvas.height - boxSize;
+      if (head.y < 0) head.y = canvas.height - box;
       if (head.y >= canvas.height) head.y = 0;
 
       if (snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
@@ -660,10 +621,7 @@
         speed = Math.min(10, 1 + Math.floor(score / 5) * 0.25);
         gameScore.textContent = `Score: ${score}`;
         gameSpeed.textContent = `Speed: ${speed.toFixed(2)}x`;
-        food = { 
-          x: Math.floor(Math.random() * 20) * boxSize, 
-          y: Math.floor(Math.random() * 20) * boxSize 
-        };
+        food = { x: Math.floor(Math.random() * 20) * box, y: Math.floor(Math.random() * 20) * box };
         playFartSound();
         clearInterval(gameInterval);
         gameInterval = setInterval(() => {
@@ -680,44 +638,20 @@
       fartSound.play();
     }
 
-    /* Mobile controls */
-    function setupMobileControls() {
-      const controls = {
-        upBtn: 'UP',
-        leftBtn: 'LEFT',
-        downBtn: 'DOWN',
-        rightBtn: 'RIGHT'
-      };
-
-      Object.keys(controls).forEach(btnId => {
-        const btn = document.getElementById(btnId);
-        btn.addEventListener('touchstart', (e) => {
-          e.preventDefault();
-          handleDirectionChange(controls[btnId]);
-        });
-      });
-    }
-
-    function handleDirectionChange(newDir) {
-      const opposite = { 'UP': 'DOWN', 'DOWN': 'UP', 'LEFT': 'RIGHT', 'RIGHT': 'LEFT' };
-      if (direction !== opposite[newDir]) {
-        direction = newDir;
-      }
-    }
-
-    /* Event listeners */
     document.addEventListener("keydown", e => {
       if (['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(e.key)) {
         e.preventDefault();
-        if (e.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
-        if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
-        if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
-        if (e.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
       }
+      if (e.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
+      if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
+      if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
+      if (e.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
     });
 
     playGameBtn.addEventListener("click", () => {
       resetGame();
+      playGameBtn.style.display = 'none';
+      stopGameBtn.style.display = 'block';
       startGame();
     });
 
@@ -725,17 +659,19 @@
       stopGame();
     });
 
-    canvas.addEventListener('touchstart', e => e.preventDefault(), { passive: false });
-    window.addEventListener('resize', () => {
-      if (document.body.classList.contains('game-active')) {
-        resetGame();
-      }
-    });
-
-    /* Initialize */
-    setupMobileControls();
     resetGame();
     stopGame();
+
+    // Funzione per alternare la visualizzazione del pannello "Buy FartQwen" al clic sull'agente a sinistra
+    function toggleBuyPanel() {
+      var panel = document.getElementById("buy-panel");
+      if (panel.style.display === "none" || panel.style.display === "") {
+        panel.style.display = "block";
+      } else {
+        panel.style.display = "none";
+      }
+    }
   </script>
+  
 </body>
 </html>
