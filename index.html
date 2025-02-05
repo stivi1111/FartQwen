@@ -1,14 +1,12 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="fart.png" type="image/png">
+  <link rel="icon" href="logo.png" type="image/png">
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>FartQwen</title>
-  <!-- Importa il font Bangers da Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
   <style>
-    /* Stili generali */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #121212;
@@ -22,7 +20,6 @@
       overflow: hidden;
     }
 
-    /* Animated Header */
     header {
       position: relative;
       padding: 120px 20px 80px;
@@ -62,14 +59,6 @@
       text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
       animation: wobble 2s ease-in-out infinite;
     }
-    header .logo-image {
-      display: block;
-      margin: 20px auto 0 auto;
-      max-width: 150px;
-      border: none;
-      box-shadow: none;
-      background: transparent;
-    }
     @keyframes wobble {
       0%, 100% { transform: translateX(0) rotate(0deg); }
       25% { transform: translateX(-3px) rotate(-1deg); }
@@ -81,7 +70,6 @@
       color: #e1bee7;
     }
 
-    /* Navigation Bar */
     nav {
       position: fixed;
       top: 0;
@@ -154,14 +142,12 @@
       background: rgba(255, 255, 255, 0.05);
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      position: relative;
     }
     h2 {
       color: #8a2be2;
       font-size: 2rem;
       margin-bottom: 15px;
     }
-    /* Regola globale per le immagini */
     img {
       max-width: 100%;
       height: auto;
@@ -186,7 +172,6 @@
       box-shadow: 0 8px 20px rgba(138, 43, 226, 0.5);
     }
     .contract-address {
-      margin-top: 20px;
       text-align: center;
       font-family: monospace;
       font-size: 1rem;
@@ -312,7 +297,6 @@
       to {bottom: 0; opacity: 0;}
     }
 
-    /* AGENTE DESTINATO AL WELCOME (in basso a destra): SOLO TESTO */
     #agent-window {
       position: fixed;
       bottom: 20px;
@@ -331,7 +315,6 @@
       color: #ffeb3b;
     }
 
-    /* AGENTE A SINISTRA: SOLO IMMAGINE, SENZA BORDI, SFONDO O OMBRE */
     #agent-image {
       position: fixed;
       bottom: 20px;
@@ -350,10 +333,9 @@
       box-shadow: none !important;
     }
 
-    /* PANNELLO CHE COMPARE AL CLIC SULL'AGENTE A SINISTRA */
     #buy-panel {
       position: fixed;
-      bottom: 130px; /* Posizionato sopra l'immagine */
+      bottom: 130px;
       left: 20px;
       background: rgba(74, 20, 140, 0.9);
       border: 2px solid #ffeb3b;
@@ -364,6 +346,85 @@
       font-family: 'Bangers', cursive;
       font-size: 1.2rem;
       color: #ffeb3b;
+    }
+
+    /* Mobile Controls */
+    .mobile-controls {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      justify-content: center;
+      gap: 10px;
+      touch-action: manipulation;
+      z-index: 1000;
+    }
+
+    .control-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(138, 43, 226, 0.7);
+      border: 2px solid #ffeb3b;
+      color: white;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s ease;
+    }
+
+    .control-btn:active {
+      transform: scale(0.9);
+      background: rgba(255, 105, 180, 0.7);
+    }
+
+    .dpad-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+
+    @media (max-width: 768px) {
+      #gameCanvas {
+        width: 90vw;
+        height: 90vw;
+        max-width: 400px;
+        max-height: 400px;
+      }
+
+      .mobile-controls {
+        display: flex;
+      }
+
+      .canvas-container {
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .game-info {
+        font-size: 1rem;
+      }
+
+      header h1 {
+        font-size: 3rem;
+      }
+
+      .container {
+        margin: 10px;
+        padding: 15px;
+      }
+
+      #agent-image {
+        bottom: 100px;
+      }
+
+      #buy-panel {
+        bottom: 180px;
+      }
     }
   </style>
 </head>
@@ -388,7 +449,6 @@
       <div class="gas-cloud">💨</div>
     </div>
     <h1>FartQwen</h1>
-    <!-- <img src="logo.png" alt="Logo FartQwen" class="logo-image"> -->
   </header>
 
   <div class="container">
@@ -432,7 +492,7 @@
       <h2>Play the FartQwen Game!</h2>
       <p>Control the snake to eat as many farts (💨) as possible. Use the arrow keys to move!</p>
       <div class="canvas-container">
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <canvas id="gameCanvas"></canvas>
         <button id="playGameBtn">Play the Game</button>
       </div>
       <div class="stop-container">
@@ -449,24 +509,30 @@
     &copy; 2023 FartQwen. Created by Qwen. | <a href="#privacy" class="scroll-link">Privacy Policy</a> | <a href="#terms" class="scroll-link">Terms of Service</a>
   </footer>
 
-  <!-- AGENTE DESTINATO AL WELCOME (in basso a destra): SOLO TESTO -->
   <div id="agent-window">
     <div class="agent-text">Welcome to FartQwen!</div>
   </div>
 
-  <!-- AGENTE A SINISTRA: SOLO IMMAGINE (SENZA BORDI, SFONDO, OMBRE) -->
   <div id="agent-image" onclick="toggleBuyPanel()">
     <img src="logo.png" alt="Agent Image">
   </div>
 
-  <!-- PANNELLO CHE COMPARE AL CLIC SULL'AGENTE A SINISTRA -->
   <div id="buy-panel">Buy FartQwen 🚀</div>
 
-  <!-- Toast Notification -->
   <div id="toast">Contract Address copied to clipboard!</div>
 
+  <div class="mobile-controls">
+    <div class="dpad-container">
+      <div></div>
+      <button class="control-btn" id="upBtn">↑</button>
+      <div></div>
+      <button class="control-btn" id="leftBtn">←</button>
+      <button class="control-btn" id="downBtn">↓</button>
+      <button class="control-btn" id="rightBtn">→</button>
+    </div>
+  </div>
+
   <script>
-    // FUNZIONE: Smooth Scroll
     function smoothScroll(targetEl, duration) {
       const target = document.querySelector(targetEl);
       const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
@@ -492,7 +558,6 @@
       requestAnimationFrame(animation);
     }
 
-    // FUNZIONE: Toast Notification & Copy Address
     function showToast(message) {
       const toast = document.getElementById("toast");
       toast.textContent = message;
@@ -511,7 +576,6 @@
       });
     }
 
-    // NAVBAR: Nascondi la barra se si scorre verso il basso, ricompare se si scorre verso l'alto.
     let lastScrollY = window.pageYOffset;
     const navbar = document.getElementById('navbar');
 
@@ -534,24 +598,31 @@
       });
     });
 
-    // Variabili e funzioni per il gioco Snake
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
     const playGameBtn = document.getElementById("playGameBtn");
     const stopGameBtn = document.getElementById("stopGameBtn");
     const gameScore = document.getElementById("gameScore");
     const gameSpeed = document.getElementById("gameSpeed");
-    const box = 20;
     let snake, food, direction, score, speed, gameInterval;
 
     function resetGame() {
+      const isMobile = window.innerWidth <= 768;
+      const canvasSize = isMobile ? Math.min(window.innerWidth - 40, 400) : 400;
+      canvas.width = canvasSize;
+      canvas.height = canvasSize;
+      
+      const boxSize = canvas.width / 20;
       snake = [
-        { x: 10 * box, y: 10 * box },
-        { x: 9 * box, y: 10 * box },
-        { x: 8 * box, y: 10 * box }
+        { x: 10 * boxSize, y: 10 * boxSize },
+        { x: 9 * boxSize, y: 10 * boxSize },
+        { x: 8 * boxSize, y: 10 * boxSize }
       ];
       direction = "RIGHT";
-      food = { x: Math.floor(Math.random() * 20) * box, y: Math.floor(Math.random() * 20) * box };
+      food = {
+        x: Math.floor(Math.random() * 20) * boxSize,
+        y: Math.floor(Math.random() * 20) * boxSize
+      };
       score = 0;
       speed = 1;
       gameScore.textContent = `Score: ${score}`;
@@ -583,9 +654,9 @@
         ctx.fillStyle = index === 0 ? "#8A2BE2" : "#FF69B4";
         ctx.beginPath();
         if (typeof ctx.roundRect === "function") {
-          ctx.roundRect(segment.x, segment.y, box, box, 5);
+          ctx.roundRect(segment.x, segment.y, canvas.width/20, canvas.width/20, 5);
         } else {
-          ctx.fillRect(segment.x, segment.y, box, box);
+          ctx.fillRect(segment.x, segment.y, canvas.width/20, canvas.width/20);
         }
         ctx.fill();
       });
@@ -596,16 +667,17 @@
     }
 
     function update() {
+      const boxSize = canvas.width / 20;
       const head = { ...snake[0] };
 
-      if (direction === "LEFT") head.x -= box;
-      if (direction === "UP") head.y -= box;
-      if (direction === "RIGHT") head.x += box;
-      if (direction === "DOWN") head.y += box;
+      if (direction === "LEFT") head.x -= boxSize;
+      if (direction === "UP") head.y -= boxSize;
+      if (direction === "RIGHT") head.x += boxSize;
+      if (direction === "DOWN") head.y += boxSize;
 
-      if (head.x < 0) head.x = canvas.width - box;
+      if (head.x < 0) head.x = canvas.width - boxSize;
       if (head.x >= canvas.width) head.x = 0;
-      if (head.y < 0) head.y = canvas.height - box;
+      if (head.y < 0) head.y = canvas.height - boxSize;
       if (head.y >= canvas.height) head.y = 0;
 
       if (snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
@@ -621,7 +693,10 @@
         speed = Math.min(10, 1 + Math.floor(score / 5) * 0.25);
         gameScore.textContent = `Score: ${score}`;
         gameSpeed.textContent = `Speed: ${speed.toFixed(2)}x`;
-        food = { x: Math.floor(Math.random() * 20) * box, y: Math.floor(Math.random() * 20) * box };
+        food = { 
+          x: Math.floor(Math.random() * 20) * boxSize, 
+          y: Math.floor(Math.random() * 20) * boxSize 
+        };
         playFartSound();
         clearInterval(gameInterval);
         gameInterval = setInterval(() => {
@@ -638,14 +713,44 @@
       fartSound.play();
     }
 
+    function setupMobileControls() {
+      const controls = {
+        upBtn: 'UP',
+        leftBtn: 'LEFT',
+        downBtn: 'DOWN',
+        rightBtn: 'RIGHT'
+      };
+
+      Object.keys(controls).forEach(btnId => {
+        const btn = document.getElementById(btnId);
+        btn.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          handleDirectionChange(controls[btnId]);
+        });
+      });
+    }
+
+    function handleDirectionChange(newDir) {
+      const oppositeDirections = {
+        'UP': 'DOWN',
+        'DOWN': 'UP',
+        'LEFT': 'RIGHT',
+        'RIGHT': 'LEFT'
+      };
+      
+      if (direction !== oppositeDirections[newDir]) {
+        direction = newDir;
+      }
+    }
+
     document.addEventListener("keydown", e => {
       if (['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(e.key)) {
         e.preventDefault();
+        if (e.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
+        if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
+        if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
+        if (e.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
       }
-      if (e.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
-      if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
-      if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
-      if (e.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
     });
 
     playGameBtn.addEventListener("click", () => {
@@ -659,19 +764,16 @@
       stopGame();
     });
 
+    canvas.addEventListener('touchstart', e => e.preventDefault(), { passive: false });
+    window.addEventListener('resize', resetGame);
+    setupMobileControls();
     resetGame();
     stopGame();
 
-    // Funzione per alternare la visualizzazione del pannello "Buy FartQwen" al clic sull'agente a sinistra
     function toggleBuyPanel() {
       var panel = document.getElementById("buy-panel");
-      if (panel.style.display === "none" || panel.style.display === "") {
-        panel.style.display = "block";
-      } else {
-        panel.style.display = "none";
-      }
+      panel.style.display = panel.style.display === "block" ? "none" : "block";
     }
   </script>
-  
 </body>
 </html>
