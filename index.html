@@ -348,55 +348,53 @@
       color: #ffeb3b;
     }
 
-    /* Mobile Controls: inizialmente nascosti, saranno mostrati dopo il Play */
-    <style>
-      @media (max-width: 768px) {
-        #gameCanvas {
-          width: 90vw;
-          height: 90vw;
-          max-width: 400px;
-          max-height: 400px;
-        }
-  
-        .mobile-controls {
-          display: none; /* Mostriamo i controlli solo dopo aver cliccato "Play" */
-          position: fixed;
-          bottom: 20px;
-          left: 0;
-          right: 0;
-          justify-content: center;
-          gap: 10px;
-          touch-action: manipulation;
-          z-index: 1000;
-        }
-  
-        .canvas-container {
-          width: 100%;
-          overflow: hidden;
-        }
-  
-        .game-info {
-          font-size: 1rem;
-        }
-  
-        header h1 {
-          font-size: 3rem;
-        }
-  
-        .container {
-          margin: 10px;
-          padding: 15px;
-        }
-  
-        #agent-image {
-          bottom: 100px;
-        }
-  
-        #buy-panel {
-          bottom: 180px;
-        }
+    /* Media query per dispositivi mobili */
+    @media (max-width: 768px) {
+      #gameCanvas {
+        width: 90vw;
+        height: 90vw;
+        max-width: 400px;
+        max-height: 400px;
       }
-    </style>
+  
+      .canvas-container {
+        width: 100%;
+        overflow: hidden;
+      }
+  
+      .game-info {
+        font-size: 1rem;
+      }
+  
+      header h1 {
+        font-size: 3rem;
+      }
+  
+      .container {
+        margin: 10px;
+        padding: 15px;
+      }
+  
+      #agent-image {
+        bottom: 100px;
+      }
+  
+      #buy-panel {
+        bottom: 180px;
+      }
+    }
+  
+    /* I controlli mobile sono inizialmente nascosti; verranno mostrati tramite JavaScript */
+    .mobile-controls {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      justify-content: center;
+      gap: 10px;
+      touch-action: manipulation;
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
@@ -492,7 +490,7 @@
 
   <div id="toast">Contract Address copied to clipboard!</div>
 
-  <!-- Mobile Controls: inizialmente nascosti -->
+  <!-- I controlli mobile sono definiti qui, inizialmente nascosti -->
   <div id="mobileControls" class="mobile-controls" style="display: none;">
     <div class="dpad-container">
       <div></div>
@@ -612,7 +610,7 @@
     // Funzione per avviare il gioco
     function startGame() {
       document.body.classList.add('game-active');
-      // Se siamo su mobile, mostra i controlli (cambia display in "flex")
+      // Se siamo su mobile, mostra i controlli (impostando display "flex")
       if (window.innerWidth <= 768) {
         document.getElementById("mobileControls").style.display = "flex";
       }
@@ -708,7 +706,7 @@
       fartSound.play();
     }
 
-    // Imposta i controlli mobile per toccare i pulsanti
+    // Imposta i controlli mobile per i pulsanti touch
     function setupMobileControls() {
       const controls = {
         upBtn: 'UP',
