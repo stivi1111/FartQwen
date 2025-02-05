@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <link rel="icon" href="logo.png" type="image/png">
   <meta charset="UTF-8" />
@@ -7,6 +7,7 @@
   <title>FartQwen</title>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
   <style>
+    /* Stili generali */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #121212;
@@ -15,11 +16,9 @@
       padding: 0;
       line-height: 1.6;
     }
-    
     body.game-active {
       overflow: hidden;
     }
-
     header {
       position: relative;
       padding: 120px 20px 80px;
@@ -50,7 +49,6 @@
     .gas-cloud:nth-child(1) { left: 10%; top: 20%; animation-duration: 15s; }
     .gas-cloud:nth-child(2) { left: 70%; top: 40%; animation-duration: 12s; }
     .gas-cloud:nth-child(3) { left: 30%; top: 60%; animation-duration: 18s; }
-
     header h1 {
       font-family: 'Bangers', cursive;
       font-size: 4rem;
@@ -70,6 +68,7 @@
       color: #e1bee7;
     }
 
+    /* Navbar */
     nav {
       position: fixed;
       top: 0;
@@ -135,6 +134,7 @@
       color: #ffcc00;
     }
 
+    /* Container e contenuti */
     .container {
       max-width: 1200px;
       margin: 20px auto;
@@ -219,8 +219,8 @@
       position: relative;
       display: inline-block;
     }
+    /* Il canvas verrà ridimensionato in resetGame() */
     #gameCanvas {
-      display: block;
       background: #1e1e1e;
       border: 2px solid #ff69b4;
       border-radius: 10px;
@@ -289,14 +289,15 @@
       animation: fadein 0.5s, fadeout 0.5s 2.5s;
     }
     @keyframes fadein {
-      from {bottom: 0; opacity: 0;}
-      to {bottom: 30px; opacity: 1;}
+      from { bottom: 0; opacity: 0; }
+      to { bottom: 30px; opacity: 1; }
     }
     @keyframes fadeout {
-      from {bottom: 30px; opacity: 1;}
-      to {bottom: 0; opacity: 0;}
+      from { bottom: 30px; opacity: 1; }
+      to { bottom: 0; opacity: 0; }
     }
 
+    /* Altri elementi fissi */
     #agent-window {
       position: fixed;
       bottom: 20px;
@@ -314,7 +315,6 @@
       font-size: 1.2rem;
       color: #ffeb3b;
     }
-
     #agent-image {
       position: fixed;
       bottom: 20px;
@@ -323,16 +323,12 @@
       background: none;
       border: none;
       padding: 0;
-      box-shadow: none;
     }
     #agent-image img {
       width: 150px;
       height: auto;
       object-fit: contain;
-      border-radius: 0 !important;
-      box-shadow: none !important;
     }
-
     #buy-panel {
       position: fixed;
       bottom: 130px;
@@ -348,43 +344,7 @@
       color: #ffeb3b;
     }
 
-    /* Media query per dispositivi mobili */
-    @media (max-width: 768px) {
-      #gameCanvas {
-        width: 90vw;
-        height: 90vw;
-        max-width: 400px;
-        max-height: 400px;
-      }
-  
-      .canvas-container {
-        width: 100%;
-        overflow: hidden;
-      }
-  
-      .game-info {
-        font-size: 1rem;
-      }
-  
-      header h1 {
-        font-size: 3rem;
-      }
-  
-      .container {
-        margin: 10px;
-        padding: 15px;
-      }
-  
-      #agent-image {
-        bottom: 100px;
-      }
-  
-      #buy-panel {
-        bottom: 180px;
-      }
-    }
-  
-    /* I controlli mobile sono inizialmente nascosti; verranno mostrati tramite JavaScript */
+    /* Controlli mobile (frecce) definiti qui; inizialmente nascosti */
     .mobile-controls {
       position: fixed;
       bottom: 20px;
@@ -394,11 +354,12 @@
       gap: 10px;
       touch-action: manipulation;
       z-index: 1000;
+      display: none;  /* verranno mostrati via JS */
     }
   </style>
 </head>
 <body>
-
+  <!-- Navbar -->
   <nav id="navbar">
     <div class="nav-container">
       <a href="#home" class="logo scroll-link">𝕏</a>
@@ -411,6 +372,7 @@
     </div>
   </nav>
 
+  <!-- Header -->
   <header id="home">
     <div class="gas-clouds">
       <div class="gas-cloud">💨</div>
@@ -420,6 +382,7 @@
     <h1>FartQwen</h1>
   </header>
 
+  <!-- Contenuto principale -->
   <div class="container">
     <h2>Welcome to FartQwen</h2>
     <p>FartQwen was born from a simple and fun idea. A user asked me, as a web engineer, to create a meme coin and build a website for it. Thus, by combining humor, creativity, and blockchain technology, FartQwen came to life.</p>
@@ -457,10 +420,12 @@
       <p>Just like FartQwen, farts remind us to take life lightly and with humor. 🚀💨</p>
     </div>
 
+    <!-- Sezione Gioco -->
     <div class="game-section" id="game">
       <h2>Play the FartQwen Game!</h2>
       <p>Control the snake to eat as many farts (💨) as possible. Use the arrow keys or the mobile controls!</p>
       <div class="canvas-container">
+        <!-- Il canvas verrà ridimensionato in resetGame() -->
         <canvas id="gameCanvas"></canvas>
         <button id="playGameBtn">Play the Game</button>
       </div>
@@ -474,10 +439,12 @@
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
     &copy; 2023 FartQwen. Created by Qwen. | <a href="#privacy" class="scroll-link">Privacy Policy</a> | <a href="#terms" class="scroll-link">Terms of Service</a>
   </footer>
 
+  <!-- Altri elementi fissi -->
   <div id="agent-window">
     <div class="agent-text">Welcome to FartQwen!</div>
   </div>
@@ -490,8 +457,8 @@
 
   <div id="toast">Contract Address copied to clipboard!</div>
 
-  <!-- I controlli mobile sono definiti qui, inizialmente nascosti -->
-  <div id="mobileControls" class="mobile-controls" style="display: none;">
+  <!-- Controlli mobile (frecce); inizialmente nascosti -->
+  <div id="mobileControls" class="mobile-controls">
     <div class="dpad-container">
       <div></div>
       <button class="control-btn" id="upBtn">↑</button>
@@ -503,7 +470,7 @@
   </div>
 
   <script>
-    // Smooth scroll per i link interni
+    /* Smooth scroll per i link interni */
     function smoothScroll(targetEl, duration) {
       const target = document.querySelector(targetEl);
       const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
@@ -529,7 +496,7 @@
       requestAnimationFrame(animation);
     }
 
-    // Funzione per mostrare il Toast
+    /* Funzione per mostrare il Toast */
     function showToast(message) {
       const toast = document.getElementById("toast");
       toast.textContent = message;
@@ -539,7 +506,7 @@
       }, 3000);
     }
 
-    // Funzione per copiare l'indirizzo del contratto
+    /* Funzione per copiare l'indirizzo del contratto */
     function copyToClipboard() {
       const address = document.getElementById("contractAddress").innerText;
       navigator.clipboard.writeText(address).then(() => {
@@ -549,10 +516,9 @@
       });
     }
 
-    // Gestione del Navbar che si nasconde durante lo scroll
+    /* Gestione del Navbar che si nasconde durante lo scroll */
     let lastScrollY = window.pageYOffset;
     const navbar = document.getElementById('navbar');
-
     window.addEventListener('scroll', () => {
       const currentScrollY = window.pageYOffset;
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
@@ -563,7 +529,7 @@
       lastScrollY = currentScrollY;
     });
 
-    // Collegamento dei link per lo scroll
+    /* Collegamento dei link per lo scroll */
     document.querySelectorAll('.scroll-link').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -573,7 +539,7 @@
       });
     });
 
-    // Variabili e inizializzazione del gioco
+    /* Variabili e inizializzazione del gioco */
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
     const playGameBtn = document.getElementById("playGameBtn");
@@ -582,10 +548,10 @@
     const gameSpeed = document.getElementById("gameSpeed");
     let snake, food, direction, score, speed, gameInterval;
 
-    // Funzione per resettare il gioco e impostare il canvas
+    /* Funzione per resettare il gioco e impostare il canvas */
     function resetGame() {
       const isMobile = window.innerWidth <= 768;
-      // Imposta il canvas lasciando un margine (40px) sui dispositivi mobili
+      // Calcola la dimensione del canvas: usa window.innerWidth - 40 se minore di 400, altrimenti 400
       const canvasSize = isMobile ? Math.min(window.innerWidth - 40, 400) : 400;
       canvas.width = canvasSize;
       canvas.height = canvasSize;
@@ -607,26 +573,27 @@
       gameSpeed.textContent = `Speed: ${speed.toFixed(2)}x`;
     }
 
-    // Funzione per avviare il gioco
+    /* Funzione per avviare il gioco */
     function startGame() {
       document.body.classList.add('game-active');
-      // Se siamo su mobile, mostra i controlli (impostando display "flex")
+      // Se su mobile, mostra i controlli impostando display: flex
       if (window.innerWidth <= 768) {
         document.getElementById("mobileControls").style.display = "flex";
       }
+      // Avvia il loop di gioco
       gameInterval = setInterval(() => {
         draw();
         update();
       }, 100 / speed);
     }
 
-    // Funzione per fermare il gioco
+    /* Funzione per fermare il gioco */
     function stopGame() {
       clearInterval(gameInterval);
       document.body.classList.remove('game-active');
       stopGameBtn.style.display = 'none';
       playGameBtn.style.display = 'block';
-      // Nascondi i controlli mobile se presenti
+      // Nascondi i controlli mobile (se presenti)
       if (window.innerWidth <= 768) {
         document.getElementById("mobileControls").style.display = "none";
       }
@@ -634,20 +601,18 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    // Funzione per disegnare il gioco
+    /* Funzione per disegnare il gioco */
     function draw() {
       ctx.fillStyle = "#1e1e1e";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       snake.forEach((segment, index) => {
         ctx.fillStyle = index === 0 ? "#8A2BE2" : "#FF69B4";
-        ctx.beginPath();
         if (typeof ctx.roundRect === "function") {
-          ctx.roundRect(segment.x, segment.y, canvas.width/20, canvas.width/20, 5);
+          ctx.roundRect(segment.x, segment.y, canvas.width / 20, canvas.width / 20, 5);
         } else {
-          ctx.fillRect(segment.x, segment.y, canvas.width/20, canvas.width/20);
+          ctx.fillRect(segment.x, segment.y, canvas.width / 20, canvas.width / 20);
         }
-        ctx.fill();
       });
 
       ctx.font = "20px Arial";
@@ -655,7 +620,7 @@
       ctx.fillText("💨", food.x + 5, food.y + 18);
     }
 
-    // Funzione per aggiornare lo stato del gioco
+    /* Funzione per aggiornare lo stato del gioco */
     function update() {
       const boxSize = canvas.width / 20;
       const head = { ...snake[0] };
@@ -665,12 +630,13 @@
       if (direction === "RIGHT") head.x += boxSize;
       if (direction === "DOWN") head.y += boxSize;
 
+      // Impacchetta il gioco a schermo (wrap-around)
       if (head.x < 0) head.x = canvas.width - boxSize;
       if (head.x >= canvas.width) head.x = 0;
       if (head.y < 0) head.y = canvas.height - boxSize;
       if (head.y >= canvas.height) head.y = 0;
 
-      // Se la testa tocca un segmento dello snake, game over
+      // Se la testa tocca il corpo, game over
       if (snake.slice(1).some(segment => segment.x === head.x && segment.y === head.y)) {
         alert(`Game Over! You ate ${score} farts!`);
         stopGame();
@@ -700,13 +666,13 @@
       }
     }
 
-    // Funzione per riprodurre un suono di "fart"
+    /* Funzione per riprodurre il suono "fart" */
     function playFartSound() {
       const fartSound = new Audio('data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmTgyZYIFKMqqH4Gw6UEAAAAAAAAAJAhuECF8TKrBCFBIQEDBAMB4i97VTUEoKH1+LF4FCCuNS9taFUKKixUZ2BAYRnNWLmJ4S2gxmWhtC7B1m5U5BbBxm5TxjkY0Q4RvggEJFABHwQvElUCgQBMKELoHULgJgHCQcLi2BIhwwUQHgwUQKjBVZwpBCjQBhQ3IQ0ghQl0eEBEIKLVCFUCgAKBupUAFgAgUCSFQAAAAAAQAQ');
       fartSound.play();
     }
 
-    // Imposta i controlli mobile per i pulsanti touch
+    /* Imposta i controlli mobile per il touch */
     function setupMobileControls() {
       const controls = {
         upBtn: 'UP',
@@ -724,21 +690,15 @@
       });
     }
 
-    // Gestione del cambio di direzione
+    /* Gestione del cambio di direzione (evita l'inversione diretta) */
     function handleDirectionChange(newDir) {
-      const oppositeDirections = {
-        'UP': 'DOWN',
-        'DOWN': 'UP',
-        'LEFT': 'RIGHT',
-        'RIGHT': 'LEFT'
-      };
-      
-      if (direction !== oppositeDirections[newDir]) {
+      const opposite = { 'UP': 'DOWN', 'DOWN': 'UP', 'LEFT': 'RIGHT', 'RIGHT': 'LEFT' };
+      if (direction !== opposite[newDir]) {
         direction = newDir;
       }
     }
 
-    // Gestione dei tasti direzionali da tastiera
+    /* Gestione dei tasti direzionali da tastiera */
     document.addEventListener("keydown", e => {
       if (['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown'].includes(e.key)) {
         e.preventDefault();
@@ -749,7 +709,7 @@
       }
     });
 
-    // Avvia il gioco al click del pulsante "Play"
+    /* Avvia il gioco al click del pulsante "Play the Game" */
     playGameBtn.addEventListener("click", () => {
       resetGame();
       playGameBtn.style.display = 'none';
@@ -757,23 +717,20 @@
       startGame();
     });
 
-    // Ferma il gioco al click del pulsante "Stop"
+    /* Ferma il gioco al click del pulsante "Stop the Game" */
     stopGameBtn.addEventListener("click", () => {
       stopGame();
     });
 
-    // Previeni comportamenti indesiderati sul canvas da touch
+    /* Previeni comportamenti indesiderati sul canvas (touch) */
     canvas.addEventListener('touchstart', e => e.preventDefault(), { passive: false });
     window.addEventListener('resize', resetGame);
+
+    // Inizializza i controlli mobile
     setupMobileControls();
+    // Avvia lo stato iniziale: canvas pronto, gioco fermo, pulsante Play visibile
     resetGame();
     stopGame();
-
-    // Funzione per mostrare/nascondere il pannello "Buy FartQwen"
-    function toggleBuyPanel() {
-      var panel = document.getElementById("buy-panel");
-      panel.style.display = panel.style.display === "block" ? "none" : "block";
-    }
   </script>
 </body>
 </html>
